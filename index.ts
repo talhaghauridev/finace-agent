@@ -72,6 +72,31 @@ async function callAgent() {
               },
             },
           },
+          {
+            type: "function",
+            function: {
+              name: "addIncome",
+              description: "Add new income entry to income database",
+              parameters: {
+                type: "object",
+                name: {
+                  type: "string",
+                  description: "Name of the income. e.g., Got salary",
+                },
+                amount: {
+                  type: "string",
+                  description: "Amount of the income.",
+                },
+              },
+            },
+          },
+          {
+            type: "function",
+            function: {
+              name: "getMoneyBalance",
+              description: "Get remaining money balance from database.",
+            },
+          },
         ],
       });
 
@@ -96,7 +121,13 @@ async function callAgent() {
             result = getTotalExpense(JSON.parse(functionArgs));
           } else if (functionName === "addExpense") {
             result = addExpense(JSON.parse(functionArgs));
+          } else if (functionName === "getMoneyBalance") {
+            result = getMoneyBalance();
+          } else if (functionName === "addIncome") {
+            result = addExpense(JSON.parse(functionArgs));
           }
+
+          console.log({ result });
           messages.push({
             role: "tool",
             content: result,
